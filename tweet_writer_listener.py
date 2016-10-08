@@ -19,7 +19,7 @@ class TweetWriterListener(StreamListener):
         try:
             tweet = json.loads(data)
             tweet_text = tweet['text'].replace('\n', ' ')
-            logging.info('Got: \t%s', tweet_text)
+            logging.debug('Got: \t%s', tweet_text)
             self.f_out.write('{}\n'.format(tweet_text))
             self.f_out.flush()
             self.counter += 1
