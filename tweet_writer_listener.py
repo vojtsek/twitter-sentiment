@@ -31,7 +31,7 @@ class TweetWriterListener(StreamListener):
         except TweepError as e:
             logging.error('TweepError - reason: %s; response: %s; api_code: %s', e.reason, e.response, e.api_code)
         except UnicodeEncodeError:
-            logging.warning('Couldn\'t parse accepted tweet {}/{}, ignoring', self.counter, self.limit)
+            logging.warning('Couldn\'t parse accepted tweet %d/%d, ignoring', self.counter, self.limit)
         except RuntimeError as e:
             logging.error('Unexpected error: %s', e)
 
