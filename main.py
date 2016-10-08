@@ -3,6 +3,7 @@ import pickle as pck
 import logging
 import sys
 import json
+import twitter_config
 
 countries = [
     ("Tirana", "Albania"),
@@ -41,6 +42,7 @@ class CountryTweets:
     def append_tweets(self, tweets):
         self.tweets.extend(tweets)
 
+
 def poly2bb(coords):
     latitudes = list(map(lambda x: x[0], coords))
     longitudes = list(map(lambda x: x[1], coords))
@@ -50,18 +52,20 @@ def poly2bb(coords):
     ne_long = max(longitudes)
     return [sw_long, sw_lat, ne_long, ne_lat]
 
+
 def place2coords(place, gran="city"):
     places = api.geo_search(query=place, granularity=gran)
     coords = places[0].bounding_box.coordinates
     return poly2bb(coords[0])
+
 
 if __name__ == '__main__':
 
     logging.basicConfig(level=logging.WARNING, format='%(asctime)s %(levelname)s %(message)s')
     logger = logging.getLogger(__name__)
 #
-    auth = tweepy.OAuthHandler("mXGTwaLOFqU4T28nUywSnpc1o", "GUFlX9a26MQqREaffhqU9KDPZnoZmlqgZ8XDYrGVH6GvN4EhS6")
-    auth.set_access_token("880950271-aBZRRjHXgK9h6WAnBXWDVnsw8hlR6Yzsepv0uRx2", "aiEEYYH6gHxZ4cLZOQZrOYvWFTW9cJ5OG6wXVKQ9P1FEV")
+    auth = tweepy.OAuthHandler(twitter_config.CONSUMER_KEY, twitter_config.CONSUMER_SECRET)
+    auth.set_access_token(twitter_config.ACCESS_TOKEN, twitter_config.ACCESS_TOKEN_SECRET)
 #
     api = tweepy.API(auth)
 

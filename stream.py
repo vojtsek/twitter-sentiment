@@ -3,6 +3,8 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 import json
 import sys
+import twitter_config
+
 
 class StdOutListener(StreamListener):
 
@@ -24,9 +26,8 @@ if __name__ == '__main__':
     l = StdOutListener()
     # auth = OAuthHandler(consumer_key, consumer_secret)
     # auth.set_access_token(access_token, access_token_secret)
-    auth = OAuthHandler("mXGTwaLOFqU4T28nUywSnpc1o", "GUFlX9a26MQqREaffhqU9KDPZnoZmlqgZ8XDYrGVH6GvN4EhS6")
-    auth.set_access_token("880950271-aBZRRjHXgK9h6WAnBXWDVnsw8hlR6Yzsepv0uRx2",
-                          "aiEEYYH6gHxZ4cLZOQZrOYvWFTW9cJ5OG6wXVKQ9P1FEV")
+    auth = OAuthHandler(twitter_config.CONSUMER_KEY, twitter_config.CONSUMER_SECRET)
+    auth.set_access_token(twitter_config.ACCESS_TOKEN, twitter_config.ACCESS_TOKEN_SECRET)
     stream = Stream(auth, l)
 
     #This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
