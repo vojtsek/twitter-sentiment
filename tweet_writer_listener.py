@@ -25,7 +25,7 @@ class TweetWriterListener(StreamListener):
             self.f_out.flush()
             self.counter += 1
             if self.counter % self.progress_frequency == 0:
-                logging.info('Tweet {}/{}', self.counter, self.limit)
+                logging.info('Tweet %d/%d', self.counter, self.limit)
         except RateLimitError:
             logging.warning('RateLimitError, sleeping for 15min')
         except TweepError as e:
