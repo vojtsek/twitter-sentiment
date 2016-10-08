@@ -1,8 +1,6 @@
 import tweepy
 from tweepy import Stream
-import pickle as pck
 import logging
-import sys
 import json
 import os.path as path
 from collections import OrderedDict
@@ -96,8 +94,8 @@ if __name__ == '__main__':
         json.dump(bboxes, open(BBOX_FILE, 'w'))
 
     logging.info('Creating stream')
-    stream = Stream(auth, StdOutListener())
 
     for city, locations in bboxes.items():
-        logging.info('Tweets from %s (%s)', city, locations)
-        stream.filter(locations=locations, languages=["en"])
+        logging.info('Getting tweets from %s (%s)', city, locations)
+        stream = Stream(auth, StdOutListener("{}-tweets.out".format(city.split(" ")[0]), 5))
+        stream.filter(locations=locations, languages=["en"], async=False)
