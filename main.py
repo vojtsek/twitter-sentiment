@@ -1,10 +1,12 @@
-import tweepy
-from tweepy import Stream
 import logging
 import json
 import os
 import os.path as path
 from collections import OrderedDict
+import argparse
+
+import tweepy
+from tweepy import Stream
 
 import twitter_config
 from tweet_writer_listener import TweetWriterListener
@@ -12,7 +14,6 @@ from tweet_writer_listener import TweetWriterListener
 
 CITIES = ['San Francisco', 'New York', 'Boston', 'Los Angeles', 'Dallas', 'Miami']
 OUT_DIR = 'out'
-LIMIT = 10
 
 
 def poly2bb(coords):
@@ -44,6 +45,10 @@ if __name__ == '__main__':
     logging.getLogger("requests").setLevel(logging.WARNING)
     logging.getLogger("urllib3").setLevel(logging.WARNING)
 
+    parser = argparse.ArgumentParser('Twitter sentiment analysis')
+    parser.add_argument('--limit', type=int, required=True, help='Tweet limit per city')
+    args = parser.parse_args()
+
     mkdir_if_not_exists(OUT_DIR)
 
     logging.info('API authentization')
@@ -72,5 +77,5 @@ if __name__ == '__main__':
     for city, locations in bboxes.items():
         logging.info('Getting tweets from %s (%s)', city, locations)
         with open(path.join(OUT_DIR, "{}_tweets.txt".format(city.replace(' ', ''))), 'a') as f_out:
-            stream = Stream(auth, TweetWriterListener(f_out, LIMIT))
+            stream = Stream(auth, TweetWriterListener(f_out, args.limit))
             stream.filter(locations=locations, languages=["en"], async=False)
