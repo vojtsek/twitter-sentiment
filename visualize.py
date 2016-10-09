@@ -1,4 +1,4 @@
-:import cartopy.crs as ccrs
+import cartopy.crs as ccrs
 import cartopy.io.img_tiles as cimg
 import matplotlib.pyplot as plt
 from matplotlib._png import read_png
@@ -8,7 +8,7 @@ import json
 from cartopy.io import shapereader
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 
-BBOX_FILE = 'bboxes.json'
+BBOX_FILE = 'out/bboxes.json'
 
 def make_map(figsize=(16, 12), projection=ccrs.PlateCarree()):
     fig = plt.figure(figsize=figsize)
