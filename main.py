@@ -16,6 +16,7 @@ from tweet_writer_listener import TweetWriterListener
 
 CITIES = ['San Francisco', 'New York', 'Boston', 'Los Angeles', 'Dallas', 'Miami']
 OUT_DIR = 'out'
+BBOX_FILE = path.join(OUT_DIR, 'bboxes.json')
 
 
 def poly2bb(coords):
@@ -59,7 +60,6 @@ if __name__ == '__main__':
     api = tweepy.API(auth)
 
     # for country in countries:
-    BBOX_FILE = path.join(OUT_DIR, 'bboxes.json')
     if path.isfile(BBOX_FILE):
         logging.info('Using the cached bounding boxes from file %s', BBOX_FILE)
         bboxes = json.load(open(BBOX_FILE, 'r'))
