@@ -1,4 +1,4 @@
-import cartopy.crs as ccrs
+:import cartopy.crs as ccrs
 import cartopy.io.img_tiles as cimg
 import matplotlib.pyplot as plt
 from matplotlib._png import read_png
