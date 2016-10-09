@@ -93,7 +93,7 @@ if __name__ == '__main__':
         fn = 'img/pie_{}.png'.format(d[0])
         coords = ((d[-2] - MIN_LNG) / (MAX_LNG - MIN_LNG), (d[-1] - MIN_LAT) / (MAX_LAT - MIN_LAT))
         imageData = read_png(fn)
-        newax = fig.add_axes([coords[0] * 0.9, coords[1] * 0.75, 0.1, 0.1], zorder=10)
+        newax = fig.add_axes([coords[0] * 0.88, coords[1] * 0.7, 0.12, 0.12], zorder=10)
         newax.imshow(imageData)
         newax.axis('off')
 

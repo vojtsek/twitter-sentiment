@@ -12,6 +12,9 @@ if __name__ == '__main__':
     for f_name in glob(path.join('out', 'raw_1k', '*.txt')):
         with open(f_name, 'r') as f:
             preprocessed = preprocess(f, 5)
+            if path.exists("{}.sentiment".format(f_name)):
+                print("skip " + f_name)
+                continue
             with open("{}.sentiment".format(f_name), 'w') as ff:
                 for i, tweet in enumerate(preprocessed):
                     sentiment = indicoio.sentiment_hq(tweet)
